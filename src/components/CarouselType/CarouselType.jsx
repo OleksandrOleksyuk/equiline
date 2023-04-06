@@ -10,7 +10,7 @@ const CarouselType = () => {
       className="swiper-container p-5 min-w-full max-w-screen-2xl mx-auto"
     >
       <Swiper
-        spaceBetween={25}
+        spaceBetween={20}
         slidesPerView={"auto"}
         navigation
         onSlideChange={() => console.log("slide change")}
