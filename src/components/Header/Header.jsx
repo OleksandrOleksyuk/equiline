@@ -35,7 +35,7 @@ const Header = () => {
   });
 
   return (
-    <header className="">
+    <header className="relative">
       <Navbar openNav={openNav} setOpenNav={setOpenNav} />
       <Sidebar openNav={openNav} setOpenNav={setOpenNav} />
       <Background
@@ -84,6 +84,7 @@ const Button = ({
   handleRightArrowClick,
   backgroundArray,
 }) => {
+  console.log();
   return (
     <>
       <div

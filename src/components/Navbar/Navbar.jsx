@@ -2,12 +2,31 @@ import logo from "../../assets/equiline-logo-white.svg";
 import hamburgher from "../../assets/svg/hamburgher.svg";
 import { arrIcon, arrDrop, arrDrop2 } from "../../constants";
 import { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import Modal from "./Modal/Modal.jsx";
 
 const Navbar = ({ openNav, setOpenNav }) => {
-  const [countrySelected, setCountrySelected] = useState("");
+  const [countrySelected, setCountrySelected] = useState({
+    flags: {
+      png: "https://flagcdn.com/w320/ua.png",
+    },
+    cioc: "UKR",
+  });
   const [openModal, setOpenModal] = useState(false);
+  const [country, setCountry] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("https://restcountries.com/v3.1/all");
+      const data = await res.json();
+      setCountry([...data]);
+      country.forEach(
+        (c) =>
+          c.name.common.toLowerCase() === "ukraine" && setCountrySelected(c)
+      );
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="absolute top-0 left-0 w-full z-10">
       <div className="uppercase py-3 text-center text-sm bg-white">
@@ -89,78 +108,8 @@ const Navbar = ({ openNav, setOpenNav }) => {
         setCountrySelected={setCountrySelected}
         setOpenModal={setOpenModal}
         openModal={openModal}
+        country={country}
       />
-    </div>
-  );
-};
-
-const Modal = ({ setCountrySelected, openModal, setOpenModal }) => {
-  const [country, setCountry] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("https://restcountries.com/v3.1/all");
-      const data = await res.json();
-      setCountry([...data]);
-      country.forEach((c) => {
-        if (c.name.common.toLowerCase() === "ukraine") {
-          console.log(c);
-          setCountrySelected(c);
-          // setCountryName(c.cioc);
-        }
-      });
-    };
-    fetchData();
-  }, []);
-  return (
-    <div className={`overflow-hidden ${openModal ? "md:block" : "hidden"}`}>
-      <div
-        className="absolute top-0 left-0 bg-gray-500 opacity-40 z-30 flex justify-center items-center w-screen h-screen"
-        onClick={() => setOpenModal(!openModal)}
-      ></div>
-      <div className="absolute top-1/2 left-1/2 w-96 -translate-x-1/2 translate-y-1/2 h-96 bg-slate-50 z-30 p-5 flex flex-col items-start justify-between">
-        <div>
-          <h1 className="text-base font-light uppercase ">
-            Seleziona il tuo paese
-          </h1>
-          <p className="text-sm font-light">Selezione corrente</p>
-        </div>
-        <div className="p-5 swiper-container h-64 border-t-2 border-cyan-300  overflow-auto">
-          <Swiper
-            spaceBetween={0}
-            slidesPerView={"auto"}
-            direction={"vertical"}
-            navigation
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
-          >
-            <div className="swiper-wrapper">
-              {country.map((country, i) => (
-                <SwiperSlide key={i}>
-                  <div
-                    className="h-8 flex my-1 items-center gap-3"
-                    onClick={() => {
-                      setOpenModal(!openModal);
-                      setCountrySelected(country);
-                    }}
-                  >
-                    <div className="h-8 w-14">
-                      <img
-                        className="h-8 w-14 object-cover"
-                        src={country.flags.png}
-                      />
-                    </div>
-                    <div>
-                      <p className="cursor-pointer hover:underline hover:underline-offset-1">
-                        {country.name.common}
-                      </p>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </div>
-          </Swiper>
-        </div>
-      </div>
     </div>
   );
 };
