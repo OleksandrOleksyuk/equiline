@@ -35,7 +35,7 @@ const Header = () => {
   });
 
   return (
-    <header className="relative">
+    <header className="">
       <Navbar openNav={openNav} setOpenNav={setOpenNav} />
       <Sidebar openNav={openNav} setOpenNav={setOpenNav} />
       <Background

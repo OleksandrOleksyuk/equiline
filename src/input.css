@@ -11,6 +11,13 @@
   transform: translateX(0);
 }
 
-#carouselType .swiper-slide {
+#carouselType .swiper-slide,
+#mustHave .swiper-slide {
   width: auto;
+}
+
+@media screen and (min-width: 96rem) {
+  #mustHave .swiper {
+    overflow: visible;
+  }
 }

@@ -7,7 +7,7 @@ const CarouselType = () => {
   return (
     <div
       id="carouselType"
-      className="swiper-container p-5 min-w-full max-w-screen-2xl mx-auto"
+      className="swiper-container p-5 w-full max-w-screen-2xl mx-auto 2xl:flex"
     >
       <Swiper
         spaceBetween={20}
@@ -34,7 +34,7 @@ const CarouselType = () => {
 
 const CardCarousel = ({ src, title, text }) => {
   return (
-    <div className="relative w-72 md:w-96 h-full">
+    <div className="relative w-72 md:w-[350px] h-full">
       <img className="h-full object-cover" src={src} />
       <div
         className="w-full bg-gradient-to-b from-slate-900 via-slate-800 to-slate-700 opacity-70 h-[60%]

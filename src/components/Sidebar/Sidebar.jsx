@@ -6,9 +6,6 @@ import user from "../../assets/svg/user.svg";
 import heart from "../../assets/svg/heart.svg";
 
 const Sidebar = ({ openNav, setOpenNav }) => {
-  const slideStyle = {
-    // transition: "transform 1s ease",
-  };
   return (
     <div
       className={`w-screen h-screen bg-slate-900 absolute top-0 left-0 z-20 sidebar ${
@@ -25,8 +22,8 @@ const Sidebar = ({ openNav, setOpenNav }) => {
           className="absolute top-0 right-0 m-5 w-6 h-6 z-10 cursor-pointer"
           onClick={() => setOpenNav(() => !openNav)}
         />
-        <div className="w-full overflow-hidden">
-          <img src={sidebarBg} className="object-cover" />
+        <div className="w-full overflow-hidden h-full">
+          <img src={sidebarBg} className="object-cover min-h-full" />
         </div>
         <div className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-700 h-full w-full absolute top-0 left-0 opacity-30"></div>
         <input
